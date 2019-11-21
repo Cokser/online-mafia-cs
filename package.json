@@ -13,6 +13,8 @@
   "keywords": [
     "react",
     "redux",
+    "webpack",
+    "sass",
     "game"
   ],
   "author": "Bombit",
