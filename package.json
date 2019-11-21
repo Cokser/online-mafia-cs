@@ -1,0 +1,24 @@
+{
+  "name": "online-mafia-cs",
+  "version": "1.0.0",
+  "description": "role-play mafia online",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cokser/online-mafia-cs.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "game"
+  ],
+  "author": "Bombit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cokser/online-mafia-cs/issues"
+  },
+  "homepage": "https://github.com/Cokser/online-mafia-cs#readme"
+}
