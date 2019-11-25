@@ -1,7 +1,7 @@
 require('@babel/register');
 const webpackMerge = require('webpack-merge');
 
-const common = require('./configs/webpack.common.babel');
+const common = require('./configs/webpack.common');
 
 const envs = {
     development: 'dev',
@@ -10,5 +10,5 @@ const envs = {
 
 /* eslint-disable global-require,import/no-dynamic-require */
 const env = envs[process.env.NODE_ENV || 'development'];
-const envConfig = require(`./configs/webpack.${env}.babel`);
+const envConfig = require(`./configs/webpack.${env}`);
 module.exports = webpackMerge(common, envConfig);
