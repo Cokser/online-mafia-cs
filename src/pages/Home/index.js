@@ -1,23 +1,29 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import {getInitialAction} from "./actions";
+import HomeComponent from "../../components/Home";
 
 class HomePage extends React.PureComponent {
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
         this.props.getInitialAction('http://echo.jsontest.com/key/value/one/two');
     }
 
     render() {
-        console.log('data', this.props.data);
         return (
             <div className="home-container">
-                <p>Hello World Wow</p>
+                <HomeComponent isLoading={this.props.isLoading} data={this.props.data} />
             </div>
         )
     }
 }
 const mapStateToProps = state => ({
-    data: state,
+    data: state.getInitialReducer.data,
+    getInitialReducer: state.getInitialReducer,
+    isLoading: state.getInitialReducer.isLoading,
 });
 
 const mapDispatchToProps = {
