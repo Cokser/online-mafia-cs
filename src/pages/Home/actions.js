@@ -3,13 +3,13 @@ import requestActionCreator from '../../shared/helpers/requestActionCreator';
 export const GET_INITIAL_DATA_REQUEST = 'GET_INITIAL_DATA_REQUEST';
 export const initialsIsLoading = bool => ({
     type: GET_INITIAL_DATA_REQUEST,
-    isLoading: bool,
+    payload: bool,
 });
 
 export const GET_INITIAL_DATA_FAILURE = 'GET_INITIAL_DATA_FAILURE';
 export const initialHasError = bool => ({
     type: GET_INITIAL_DATA_FAILURE,
-    hasError: bool,
+    payload: bool,
 });
 
 export const GET_INITIAL_DATA_SUCCESS = 'GET_INITIAL_DATA_SUCCESS';
