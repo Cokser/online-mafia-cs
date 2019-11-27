@@ -1,10 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import getInitialReducer from "./pages/Home/reducer";
+import getInitialReducer from "./pages/Home/reducers/initioalData";
+import createLobbyReducer from "./pages/Home/reducers/createLobby";
 
 const rootReducer = combineReducers({
-        getInitialReducer
+    getInitialReducer,
+    createLobbyReducer,
 });
 
 const middleware = applyMiddleware(thunk);

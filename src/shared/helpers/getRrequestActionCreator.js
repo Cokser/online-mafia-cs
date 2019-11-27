@@ -1,6 +1,6 @@
 import Request from 'superagent';
 
-const requestActionCreator = ({loadingAction, errorAction, receivedAction}) => {
+const getRequestActionCreator = ({loadingAction, errorAction, receivedAction}) => {
     const requestWrapper = (url) => {
         const request = (dispatch) => {
             dispatch(loadingAction(true));
@@ -22,4 +22,4 @@ const requestActionCreator = ({loadingAction, errorAction, receivedAction}) => {
     return requestWrapper;
 };
 
-export default requestActionCreator;
+export default getRequestActionCreator;

@@ -1,4 +1,4 @@
-import requestActionCreator from '../../shared/helpers/requestActionCreator';
+import requestActionCreator from '../../shared/helpers/getRrequestActionCreator';
 
 export const GET_INITIAL_DATA_REQUEST = 'GET_INITIAL_DATA_REQUEST';
 export const initialsIsLoading = bool => ({
