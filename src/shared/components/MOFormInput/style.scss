@@ -1,0 +1,11 @@
+@import "./../../styles/common";
+
+.mo-form-input-container {
+  margin: 10px;
+  .form-label {
+    @extend .mo-label;
+  }
+  .form-input {
+    @extend .mo-input;
+  }
+}

@@ -11,14 +11,9 @@ class HomePage extends React.PureComponent {
     componentDidMount() {
     }
 
-    handleCreateNewLobby = () => {
+    handleCreateNewLobby = (body) => {
         const { createNewLobby } = this.props;
-        console.log('handleCreateNewLobby');
-        createNewLobby('/users/create', {
-            id: 123,
-            name: 'asdad sadasdas',
-            department: 'none'
-        });
+        createNewLobby('/lobby', body);
     };
 
     render() {
