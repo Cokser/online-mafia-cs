@@ -2,10 +2,11 @@ import Request from 'superagent';
 
 const postRequestActionCreator = ({loadingAction, errorAction, receivedAction}) => {
     const requestWrapper = (url, body) => {
+        console.log('requestWrapper', url, body);
         const request = (dispatch) => {
             dispatch(loadingAction(true));
             dispatch(errorAction(false));
-            const apiHost = 'localhost:3200';
+            const apiHost = 'http://localhost:3200';
             Request.post(apiHost + url)
                 .send(JSON.stringify(body))
                 .then((response) => {

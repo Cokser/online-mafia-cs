@@ -13,6 +13,7 @@ class HomePage extends React.PureComponent {
 
     handleCreateNewLobby = () => {
         const { createNewLobby } = this.props;
+        console.log('handleCreateNewLobby');
         createNewLobby('/users/create', {
             id: 123,
             name: 'asdad sadasdas',
@@ -23,7 +24,7 @@ class HomePage extends React.PureComponent {
     render() {
         return (
             <div className="home-container">
-                <HomeComponent isLoading={this.props.isLoading} data={this.props.data} handleCreate={this.handleCreateNewLobby()} />
+                <HomeComponent isLoading={this.props.isLoading} data={this.props.data} handleCreate={this.handleCreateNewLobby} />
             </div>
         )
     }
@@ -35,7 +36,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    createNewLobby: () => dispatch(createNewLobby),
+    createNewLobby: (url, body) => dispatch(createNewLobby(url, body)),
 });
 
 HomePage = connect(

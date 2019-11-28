@@ -17,6 +17,7 @@ export const createNewLobbyHasError = bool => ({
     type: CREATE_LOBBY_FAILURE,
     payload: bool,
 });
+
 export const createNewLobby = postRequestActionCreator({
     loadingAction: createNewLobbyIsLoading,
     errorAction: createNewLobbyHasError,
