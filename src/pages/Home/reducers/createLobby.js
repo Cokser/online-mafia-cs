@@ -1,7 +1,7 @@
 import {CREATE_LOBBY_FAILURE, CREATE_LOBBY_REQUEST, CREATE_LOBBY_SUCCESS} from "../actions/createLobby";
 
 const initialState = {
-    posted: null,
+    newLobbyUrl: null,
     isLoading: null,
     error: false,
 };
@@ -11,7 +11,7 @@ const createLobbyReducer = (state = initialState, action) => {
         case CREATE_LOBBY_SUCCESS: {
             return {
                 ...state,
-                posted: true,
+                newLobbyUrl: action.payload,
             };
         }
         case CREATE_LOBBY_REQUEST: {

@@ -1,7 +1,8 @@
 import Request from 'superagent';
+import { navigate } from 'hookrouter';
 
 const postRequestActionCreator = ({loadingAction, errorAction, receivedAction}) => {
-    const requestWrapper = (url, body) => {
+    const requestWrapper = (url, body, cb) => {
         const request = (dispatch) => {
             dispatch(loadingAction(true));
             dispatch(errorAction(false));
@@ -9,8 +10,11 @@ const postRequestActionCreator = ({loadingAction, errorAction, receivedAction}) 
             Request.post(apiHost + url)
                 .send(body)
                 .then((response) => {
-                    dispatch(receivedAction(response.body));
+                    dispatch(receivedAction(response));
                     dispatch(loadingAction(false));
+                    if (!!cb) {
+                        cb(response);
+                    }
                 })
                 .catch(() => {
                     dispatch(errorAction(true));

@@ -3,7 +3,7 @@ import postRequestActionCreator from "../../../shared/helpers/postRequestActionC
 export const CREATE_LOBBY_SUCCESS = 'CREATE_LOBBY_SUCCESS';
 export const receiveNewLobby = payload => ({
     type: CREATE_LOBBY_SUCCESS,
-    payload,
+    payload: payload.text,
 });
 
 export const CREATE_LOBBY_REQUEST = 'CREATE_LOBBY_REQUEST';

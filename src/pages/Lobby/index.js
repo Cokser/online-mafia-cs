@@ -1,21 +1,21 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {getInitialAction} from "./actions";
-import StreamComponent from "../../components/Stream";
+import StreamComponent from "../../components/Lobby";
+import withHardware from "../../shared/hoc/withHardware/withHardware";
 
-class StreamPage extends React.PureComponent {
+class LobbyPage extends React.PureComponent {
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-        this.props.getInitialAction('http://echo.jsontest.com/key/value/one/two');
     }
 
     render() {
         return (
             <div className="home-container">
-                <StreamComponent isLoading={this.props.isLoading} data={this.props.data}/>
+                <StreamComponent isLoading={true} />
             </div>
         )
     }
@@ -31,9 +31,11 @@ const mapDispatchToProps = {
     getInitialAction,
 };
 
-StreamPage = connect(
+LobbyPage = connect(
     mapStateToProps,
     mapDispatchToProps,
-)(StreamPage);
+)(LobbyPage);
 
-export default StreamPage;
+
+
+export default withHardware(LobbyPage);

@@ -13,12 +13,13 @@ const ManageLobby = ({handleCreate, option, ...props}) => {
             description: e.target.description.value,
             private: e.target.private.checked,
             streaming_mode: e.target.streaming_mode.checked,
+            mode: e.target.mode.value,
         };
         handleCreate(newLobby);
     };
     const renderCreateLobbyForm = () => (
         <div className="create-form-container">
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit} className="create-form" >
                 <div className="form-group">
                     <MOFormInput
                         title="Title:"
@@ -28,6 +29,44 @@ const ManageLobby = ({handleCreate, option, ...props}) => {
                         title="Description:"
                         inputName="description"
                     />
+                    <div className="mo-form-input-container">
+                        <p className="form-label">
+                            Game Mode:
+                        </p>
+                        <label htmlFor="funMode">
+                            Fun
+                            <input
+                                id="funMode"
+                                className="form-input"
+                                type="radio"
+                                name="mode"
+                                value="fun"
+                                defaultChecked={true}
+                            />
+                        </label>
+                        <label htmlFor="sportMode">
+                            Sport
+                            <input
+                                id="sportMode"
+                                className="form-input"
+                                type="radio"
+                                name="mode"
+                                value="sport"
+                                defaultChecked={false}
+                            />
+                        </label>
+                        <label htmlFor="hardMode">
+                            Hard
+                            <input
+                                id="hardMode"
+                                className="form-input"
+                                type="radio"
+                                name="mode"
+                                value="hardMode"
+                                defaultChecked={false}
+                            />
+                        </label>
+                    </div>
                     <MOFormInput
                         title="Private Lobby:"
                         inputName="private"

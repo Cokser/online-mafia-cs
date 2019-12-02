@@ -1,0 +1,15 @@
+.create-form-container {
+  width: 700px;
+  margin: 10px auto;
+  border-radius: 10px;
+  border: 2px solid #939393;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+
+  .create-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
