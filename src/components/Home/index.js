@@ -2,14 +2,12 @@ import React from 'react';
 import './style.scss';
 
 import withLoading from "../../shared/hoc/withLoading/withLoading";
-import MOButtonComponent from "../../shared/components/MOButton";
 import ManageLobby from "../ManageLobby";
 
-const HomeComponent = ({handleCreate, ...props}) => {
+const HomeComponent = ({handleCreate, redirectToLobby, ...props}) => {
     return (
         <main className="main-container">
-            <h1>Home Component</h1>
-            <ManageLobby handleCreate={handleCreate} option="create" />
+            <ManageLobby handleCreate={handleCreate} redirectToLobby={redirectToLobby} option="create" />
         </main>
     );
 };

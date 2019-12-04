@@ -1,0 +1,14 @@
+.header-container {
+  height: 100px;
+  background: #542a40;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  a {
+    color: #fff;
+    margin-left: 10px;
+  }
+}

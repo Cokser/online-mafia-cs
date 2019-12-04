@@ -1,10 +1,10 @@
 import React from 'react';
+import HardwareSettings from "../../../components/HardwareSettings";
 
 function withHardware(Component) {
-    const HardwareSettings = () => <div><h2>Hardware Setup...</h2></div>;
     const WithHardware = ({isHardwareInstalled, ...props}) => {
         return ((isHardwareInstalled === undefined || isHardwareInstalled === false)
-                ? HardwareSettings()
+                ? <HardwareSettings />
                 : <Component {...props} />
         );
     };

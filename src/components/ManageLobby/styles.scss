@@ -6,6 +6,16 @@
   padding: 10px;
   display: flex;
   justify-content: center;
+  align-items: center;
+
+  .create-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+.enter-form-container {
+  @extend .create-form-container;
 
   .create-form {
     display: flex;

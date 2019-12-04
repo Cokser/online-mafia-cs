@@ -5,7 +5,7 @@ import './styles.scss';
 import MOButtonComponent from "../../shared/components/MOButton";
 import MOFormInput from "../../shared/components/MOFormInput";
 
-const ManageLobby = ({handleCreate, option, ...props}) => {
+const ManageLobby = ({handleCreate, option, redirectToLobby }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const newLobby = {
@@ -17,6 +17,12 @@ const ManageLobby = ({handleCreate, option, ...props}) => {
         };
         handleCreate(newLobby);
     };
+
+    const handleEnter = (e) => {
+        e.preventDefault();
+        redirectToLobby({text: e.target.enterId.value});
+    };
+
     const renderCreateLobbyForm = () => (
         <div className="create-form-container">
             <form onSubmit={handleSubmit} className="create-form" >
@@ -88,7 +94,29 @@ const ManageLobby = ({handleCreate, option, ...props}) => {
         </div>
     );
 
-    return renderCreateLobbyForm();
+    const renderEnterLobbyForm = () => (
+        <form onSubmit={handleEnter} className="create-form" >
+            <div className="enter-form-container">
+                <div className="form-group">
+                    <MOFormInput
+                        title="Enter the lobby:"
+                        inputName="enterId"
+                    />
+                </div>
+                <MOButtonComponent
+                    title="Enter Lobby"
+                    btnType="submit"
+                />
+            </div>
+        </form>
+    );
+
+    return (
+        <div>
+            {renderEnterLobbyForm()}
+            {renderCreateLobbyForm()}
+        </div>
+    );
 };
 
 export default ManageLobby;

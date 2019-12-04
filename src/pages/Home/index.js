@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { navigate } from 'hookrouter';
 import { connect } from 'react-redux';
 import {createNewLobby} from "./actions/createLobby";
+
+import './styles.scss';
 import HomeComponent from "../../components/Home";
 
 class HomePage extends React.PureComponent {
@@ -9,26 +11,22 @@ class HomePage extends React.PureComponent {
         super(props);
     }
 
-    componentDidMount() {
-    }
-
     handleCreateNewLobby = (body) => {
         const { createNewLobby } = this.props;
-        createNewLobby('/lobby', body, this.redirectToNewLobby);
+        createNewLobby('/lobby', body, this.redirectToLobby);
     };
 
-    redirectToNewLobby = (newLobbyUrl) => {
+    redirectToLobby = (newLobbyUrl) => {
         navigate(`/lobby/${newLobbyUrl.text}`);
     };
 
     render() {
-        console.log(this.props);
         return (
             <div className="home-container">
                 <HomeComponent
                     isLoading={this.props.isLoading}
                     data={this.props.data}
-                    redirectToNewLobby={this}
+                    redirectToLobby={this.redirectToLobby}
                     handleCreate={this.handleCreateNewLobby} />
             </div>
         )
