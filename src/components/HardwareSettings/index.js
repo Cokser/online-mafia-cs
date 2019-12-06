@@ -7,6 +7,9 @@ class HardwareSettings extends Component {
     state = {
         hardwareIsReady: false,
         hardwareError: false,
+        cameraIsReady: false,
+        microphoneIsReady: false,
+        soundIsReady: false,
     };
 
     constructor (props) {
@@ -32,7 +35,8 @@ class HardwareSettings extends Component {
                 this.localMediaStream = stream;
             }, this.onFailSoHard);
         } else {
-            this.video.src = 'somevideo.webm'; // fallback.
+            console.log('getUserMedia');
+            this.video.src = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4'; // fallback.
         }
         this.video.addEventListener('click', this.snapshot, false);
     };
@@ -58,7 +62,7 @@ class HardwareSettings extends Component {
         return (
             <div className="hardware-container">
                 <h2>Hardware Setup...</h2>
-                <video autoPlay />
+                <video autoPlay={true} />
                 <canvas ref="canvas" />
                 <img src="" alt="img"/>
             </div>

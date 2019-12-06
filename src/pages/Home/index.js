@@ -2,11 +2,12 @@ import React, { PureComponent } from 'react';
 import { navigate } from 'hookrouter';
 import { connect } from 'react-redux';
 import {createNewLobby} from "./actions/createLobby";
+import {getLobbyById} from "./actions/getLobbyById";
 
 import './styles.scss';
 import HomeComponent from "../../components/Home";
 
-class HomePage extends React.PureComponent {
+class HomePage extends PureComponent {
     constructor(props) {
         super(props);
     }
@@ -17,7 +18,8 @@ class HomePage extends React.PureComponent {
     };
 
     redirectToLobby = (newLobbyUrl) => {
-        navigate(`/lobby/${newLobbyUrl.text}`);
+        this.props.checkLobby(newLobbyUrl.text);
+        // navigate(`/lobby/${newLobbyUrl.text}`);
     };
 
     render() {
@@ -41,6 +43,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     createNewLobby: (url, body, cb) => dispatch(createNewLobby(url, body, cb)),
+    checkLobby: (lobbyId) => dispatch(getLobbyById(lobbyId)),
 });
 
 HomePage = connect(

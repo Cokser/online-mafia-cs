@@ -20,6 +20,7 @@ const ManageLobby = ({handleCreate, option, redirectToLobby }) => {
 
     const handleEnter = (e) => {
         e.preventDefault();
+
         redirectToLobby({text: e.target.enterId.value});
     };
 
