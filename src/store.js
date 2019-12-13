@@ -3,10 +3,12 @@ import { combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import getInitialReducer from "./pages/Home/reducers/initioalData";
 import createLobbyReducer from "./pages/Home/reducers/createLobby";
+import currentLobbyReducer from "./pages/Lobby/reducers/currentLobby";
 
 const rootReducer = combineReducers({
     getInitialReducer,
-    createLobbyReducer,
+    createdLobby: createLobbyReducer,
+    currentLobby: currentLobbyReducer,
 });
 
 const middleware = applyMiddleware(thunk);

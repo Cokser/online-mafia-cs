@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {getInitialAction} from "./actions";
+import {currentLobbyAction} from "./actions/currentLobby";
 import StreamComponent from "../../components/Lobby";
 import withHardware from "../../shared/hoc/withHardware/withHardware";
 
@@ -10,6 +10,7 @@ class LobbyPage extends React.PureComponent {
     }
 
     componentDidMount() {
+        console.log('LobbyPage');
     }
 
     render() {
@@ -28,7 +29,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    getInitialAction,
+    getLobbyAction: currentLobbyAction,
 };
 
 LobbyPage = connect(

@@ -1,8 +1,8 @@
 import {
-    GET_INITIAL_DATA_FAILURE,
-    GET_INITIAL_DATA_REQUEST,
-    GET_INITIAL_DATA_SUCCESS,
-} from './actions';
+    GET_LOBBY_DATA_FAILURE,
+    GET_LOBBY_DATA_REQUEST,
+    GET_LOBBY_DATA_SUCCESS,
+} from '../actions/currentLobby';
 
 const initialState = {
     data: null,
@@ -10,21 +10,21 @@ const initialState = {
     error: false,
 };
 
-const getInitialReducer = (state = initialState, action) => {
+const currentLobbyReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_INITIAL_DATA_REQUEST: {
+        case GET_LOBBY_DATA_REQUEST: {
             return {
                 ...state,
                 isLoading: action.payload,
             };
         }
-        case GET_INITIAL_DATA_FAILURE: {
+        case GET_LOBBY_DATA_FAILURE: {
             return {
                 ...state,
                 error: action.payload,
             };
         }
-        case GET_INITIAL_DATA_SUCCESS: {
+        case GET_LOBBY_DATA_SUCCESS: {
             return {
                 ...state,
                 data: action.payload,
@@ -34,4 +34,4 @@ const getInitialReducer = (state = initialState, action) => {
     }
 };
 
-export default getInitialReducer;
+export default currentLobbyReducer;
