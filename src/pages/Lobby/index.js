@@ -1,8 +1,7 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {currentLobbyAction} from "./actions/currentLobby";
-import StreamComponent from "../../components/Lobby";
-import withHardware from "../../shared/hoc/withHardware/withHardware";
+import LobbyContainer from "../../components/Lobby";
 
 class LobbyPage extends PureComponent {
     constructor(props) {
@@ -14,18 +13,18 @@ class LobbyPage extends PureComponent {
     }
 
     render() {
+        const { hardwareIsReady } = this.props;
         return (
             <div className="home-container">
-                <StreamComponent isLoading={true} />
+                <LobbyContainer isHardwareInstalled={hardwareIsReady} />
             </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    data: state.getInitialReducer.data,
-    getInitialReducer: state.getInitialReducer,
-    isLoading: state.getInitialReducer.isLoading,
+    isLoading: state.getInitial.isLoading,
+    hardwareIsReady: state.shared.stream.hardwareIsReady,
 });
 
 const mapDispatchToProps = {
@@ -37,4 +36,4 @@ LobbyPage = connect(
     mapDispatchToProps,
 )(LobbyPage);
 
-export default withHardware(LobbyPage);
+export default LobbyPage;

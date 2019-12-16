@@ -7,8 +7,8 @@ import currentLobbyReducer from "./pages/Lobby/reducers/currentLobby";
 import sharedReducer from "./shared/store";
 
 const rootReducer = combineReducers({
-    sharedReducer,
-    getInitialReducer,
+    shared: sharedReducer,
+    getInitial: getInitialReducer,
     createdLobby: createLobbyReducer,
     currentLobby: currentLobbyReducer,
 });

@@ -36,10 +36,10 @@ class HomePage extends PureComponent {
     }
 }
 const mapStateToProps = state => ({
-    data: state.getInitialReducer.data,
+    data: state.getInitial.data,
     redirectToNewLobbyUrl: state.createdLobby.newLobbyUrl,
-    getInitialReducer: state.getInitialReducer,
-    isLoading: state.getInitialReducer.isLoading,
+    getInitialReducer: state.getInitial,
+    isLoading: state.getInitial.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

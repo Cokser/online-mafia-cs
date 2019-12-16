@@ -1,4 +1,4 @@
-import {CREATE_STREAM_SUCCESS} from "../actions/stream";
+import {CREATE_STREAM_SUCCESS, STORE_STREAM_SUCCESS} from "../actions/stream";
 
 const initialState = {
     streamData: null,
@@ -10,6 +10,12 @@ const initialState = {
 const streamReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_STREAM_SUCCESS: {
+            return {
+                ...state,
+                hardwareIsReady: action.payload,
+            };
+        }
+        case STORE_STREAM_SUCCESS: {
             return {
                 ...state,
                 streamData: action.payload,

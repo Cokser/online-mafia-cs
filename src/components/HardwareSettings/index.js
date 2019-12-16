@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import './styles.scss';
 import MOButtonComponent from "../../shared/components/MOButton";
-import {createStream} from "../../shared/store/actions/stream";
+import {createStream, storeStream} from "../../shared/store/actions/stream";
 
 class HardwareSettings extends PureComponent {
     state = {
@@ -49,6 +49,11 @@ class HardwareSettings extends PureComponent {
     gotStream = (stream) => {
         window.stream = stream; // make stream available to console
         this.videoElement.srcObject = stream;
+        if (stream) {
+            this.setState({
+                hardwareIsReady: true,
+            }, () => this.props.storeStream(stream));
+        }
     };
 
     handleError = (error) => {
@@ -61,8 +66,6 @@ class HardwareSettings extends PureComponent {
                 .forEach((track) => track.stop());
         }
 
-        console.log('devices', this.videoSelect.value, this.audioSelect.value);
-
         let constraints = {
             audio: {
                 deviceId: {exact: this.audioSelect.value}
@@ -73,20 +76,17 @@ class HardwareSettings extends PureComponent {
                         : this.videoSelect.value}
             }
         };
-        constraints.video = this.state.testMode ? constraints.video : false;
-        console.log('constraints: ', constraints);
+        constraints.video = this.state.testMode ? false : constraints.video;
 
         navigator.getUserMedia = navigator.getUserMedia ||
             navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia;
 
         if (navigator.getUserMedia) {
-            console.log('getUserMedia true');
             navigator.mediaDevices.getUserMedia(constraints)
                     .then(this.gotStream)
                     .catch(this.handleError);
         } else if (navigator.webkitGetUserMedia) {
-            console.log('webkitGetUserMedia true');
             navigator.webkitGetUserMedia(constraints, this.gotStream, this.handleError);
         } else {
             this.onFailSoHard();
@@ -114,8 +114,8 @@ class HardwareSettings extends PureComponent {
                 console.log('Found another kind of device: ', deviceInfo.kind);
             }
         }
-
-        if (deviceInfos.find(el => el.kind !== 'videoinput') || this.state.testMode) {
+        if (deviceInfos.every(el => el.kind !== 'videoinput') || this.state.testMode) {
+            console.log('bye cameraman');
             const newOption = document.createElement('option');
             newOption.value = 'fake';
             newOption.text = 'Fake Video Input';
@@ -173,19 +173,18 @@ class HardwareSettings extends PureComponent {
 
     handleSubmitHardware = () => {
         if (this.state.hardwareIsReady) {
-
+            this.props.createStream();
         }
     };
 
     render() {
-        console.log(this.state.data);
         return (
             <div className="hardware-container">
                 {this.renderSetupScreen()}
                 {this.state.hardwareError === true && this.renderSetupError()}
                 <div className="setup-options">
                     <MOButtonComponent handleClick={this.handleTestModeChange} title="Enable Test Mode"/>
-                    <MOButtonComponent handleClick={this.checkSetupDevices} title="Enter the Lobby"/>
+                    <MOButtonComponent handleClick={this.handleSubmitHardware} title="Enter the Lobby"/>
                 </div>
             </div>
         );
@@ -193,12 +192,13 @@ class HardwareSettings extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-    data: state
+    streamData: state.shared.stream.streamData,
 });
 
-const mapDispatchToProps = {
-    createStream: createStream,
-};
+const mapDispatchToProps = dispatch => ({
+    createStream: () => dispatch(createStream()),
+    storeStream: (stream) => dispatch(storeStream(stream)),
+});
 
 HardwareSettings = connect(
     mapStateToProps,

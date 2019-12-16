@@ -1,8 +1,32 @@
-import React from 'react';
-import withLoading from "../../shared/hoc/withLoading/withLoading";
+import React, {PureComponent} from 'react';
+import withHardware from "../../shared/hoc/withHardware/withHardware";
+import {currentLobbyAction} from "../../pages/Lobby/actions/currentLobby";
+import {connect} from "react-redux";
+import LobbyComponent from "./component";
 
-const LobbyComponent = ({...props}) => {
-    return <h1>LobbyComponent</h1>;
+class LobbyContainer extends PureComponent {
+    render() {
+        console.log(this.props.streamData);
+        return (
+            <div className="home-container">
+                <LobbyComponent isLoading={true} />
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = state => ({
+    data: state.getInitial.data,
+    streamData: state.shared.stream.streamData,
+});
+
+const mapDispatchToProps = {
+    getLobbyAction: currentLobbyAction,
 };
 
-export default withLoading(LobbyComponent);
+LobbyContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(LobbyContainer);
+
+export default withHardware(LobbyContainer);
