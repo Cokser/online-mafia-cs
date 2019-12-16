@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 
 import './styles.scss';
 import MOButtonComponent from "../../shared/components/MOButton";
+import {createStream} from "../../shared/store/actions/stream";
 
-class HardwareSettings extends Component {
+class HardwareSettings extends PureComponent {
     state = {
         hardwareIsReady: false,
         hardwareError: null,
@@ -13,92 +15,93 @@ class HardwareSettings extends Component {
         soundIsReady: false,
     };
 
-    constructor (props) {
+    constructor(props) {
         super(props);
     }
 
     componentDidMount() {
         this.initInterface2();
-        this.checkSetupDevices2();
+        this.checkSetupDevices();
     }
-
-    // initInterface = () => {
-    //     this.video = document.querySelector('video');
-    //     this.canvas = this.refs.canvas;
-    //     this.ctx = this.canvas.getContext('2d');
-    // };
 
     initInterface2 = () => {
         this.videoElement = document.querySelector('video');
         this.audioSelect = document.querySelector('select#audioSource');
         this.videoSelect = document.querySelector('select#videoSource');
-        console.log(this.videoElement);
     };
 
-    //
-    // checkSetupDevices = () => {
-    //     if (navigator.getUserMedia) {
-    //         navigator.getUserMedia({audio: true, video: true}, (stream) => {
-    //             this.video.src = stream;
-    //             this.localMediaStream = stream;
-    //         }, this.onFailSoHard);
-    //     } else if (navigator.webkitGetUserMedia) {
-    //         navigator.webkitGetUserMedia('audio, video', (stream) => {
-    //             this.video.src = window.webkitURL.createObjectURL(stream);
-    //             this.localMediaStream = stream;
-    //         }, this.onFailSoHard);
-    //     } else {
-    //         this.onFailSoHard();
-    //     }
-    //     this.video.addEventListener('click', this.snapshot, false);
-    // };
-    checkSetupDevices2 = () => {
-        navigator.mediaDevices.enumerateDevices()
-            .then(this.gotDevices)
-            .then(getStream)
-            .catch(handleError);
+    checkSetupDevices = () => {
+        try {
+            navigator.mediaDevices.enumerateDevices()
+                .then(this.gotDevices)
+                .then(this.getStream)
+                .catch(this.handleError);
 
-        console.log(this.audioSelect, this.videoSelect);
-        this.audioSelect.onchange = getStream;
-        this.videoSelect.onchange = getStream;
+            this.audioSelect.onchange = this.getStream;
+            this.videoSelect.onchange = this.getStream;
+        }
+        catch (e) {
+            console.log('checking device error: ', e);
+        }
+    };
 
 
-        function getStream() {
-            if (window.stream) {
-                window.stream.getTracks().forEach((track) => track.stop());
+    gotStream = (stream) => {
+        window.stream = stream; // make stream available to console
+        this.videoElement.srcObject = stream;
+    };
+
+    handleError = (error) => {
+        console.error('getUserMedia Error: ', error);
+    };
+    getStream = () => {
+        if (window.stream) {
+            window.stream
+                .getTracks()
+                .forEach((track) => track.stop());
+        }
+
+        console.log('devices', this.videoSelect.value, this.audioSelect.value);
+
+        let constraints = {
+            audio: {
+                deviceId: {exact: this.audioSelect.value}
+            },
+            video: {
+                deviceId: {exact: this.state.testMode === 'fake'
+                        ? 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4'
+                        : this.videoSelect.value}
             }
+        };
+        constraints.video = this.state.testMode ? constraints.video : false;
+        console.log('constraints: ', constraints);
 
-            const constraints = {
-                audio: {
-                    deviceId: {exact: this.audioSelect.value}
-                },
-                video: {
-                    deviceId: {exact: this.videoSelect.value}
-                }
-            };
+        navigator.getUserMedia = navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia;
 
+        if (navigator.getUserMedia) {
+            console.log('getUserMedia true');
             navigator.mediaDevices.getUserMedia(constraints)
-                .then(gotStream)
-                .catch(handleError);
+                    .then(this.gotStream)
+                    .catch(this.handleError);
+        } else if (navigator.webkitGetUserMedia) {
+            console.log('webkitGetUserMedia true');
+            navigator.webkitGetUserMedia(constraints, this.gotStream, this.handleError);
+        } else {
+            this.onFailSoHard();
         }
-
-        function gotStream(stream) {
-            window.stream = stream; // make stream available to console
-            this.videoElement.srcObject = stream;
-        }
-
-        function handleError(error) {
-            console.error('Error: ', error);
-        }
+        this.videoElement.src = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4'; // fallback.
 
     };
-
 
     gotDevices = (deviceInfos) => {
+
         for (let i = 0; i !== deviceInfos.length; ++i) {
             const deviceInfo = deviceInfos[i];
             const option = document.createElement('option');
             option.value = deviceInfo.deviceId;
+
             if (deviceInfo.kind === 'audioinput') {
                 option.text = deviceInfo.label ||
                     'microphone ' + (this.audioSelect.length + 1);
@@ -106,16 +109,23 @@ class HardwareSettings extends Component {
             } else if (deviceInfo.kind === 'videoinput') {
                 option.text = deviceInfo.label || 'camera ' +
                     (this.videoSelect.length + 1);
-                this.videoSelect.appendChild(option);
+                    this.videoSelect.appendChild(option);
             } else {
-                console.log('Found another kind of device: ', deviceInfo);
+                console.log('Found another kind of device: ', deviceInfo.kind);
             }
+        }
+
+        if (deviceInfos.find(el => el.kind !== 'videoinput') || this.state.testMode) {
+            const newOption = document.createElement('option');
+            newOption.value = 'fake';
+            newOption.text = 'Fake Video Input';
+            this.videoSelect.appendChild(newOption);
+
         }
     };
 
     handleTestModeChange = () => {
         console.log('handleTestModeChange');
-        this.video.src = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4'; // fallback.
 
         this.setState({
             hardwareIsReady: true,
@@ -124,31 +134,30 @@ class HardwareSettings extends Component {
             cameraIsReady: true,
             microphoneIsReady: true,
             soundIsReady: true,
-        }, () => this.initInterface2());
+        });
     };
 
-    onFailSoHard =  (e) => {
-        this.video.src = 'https://www.youtube.com/watch?v=kOHB85vDuow'; // fallback.
+    onFailSoHard = (e) => {
+        this.video.src = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4'; // fallback.
         this.setState({
             hardwareIsReady: false,
             hardwareError: true,
         });
     };
 
-    // snapshot = () => {
-    //     if (this.localMediaStream) {
-    //         this.ctx.drawImage(this.video, 0, 0);
-    //         // "image/webp" works in Chrome 18. In other browsers, this will fall back to image/png.
-    //         document.querySelector('img').src = this.canvas.toDataURL('image/webp');
-    //     }
-    // };
-
     renderSetupScreen = () => {
         return (
             <div className="hardware-container">
                 <h2>Hardware Setup...</h2>
+                <div className="select-hardware">
+                    <label htmlFor="audioSource">Audio source: </label>
+                    <select id="audioSource" />
+                </div>
+                <div className="select-hardware">
+                    <label htmlFor="videoSource">Video source: </label>
+                    <select id="videoSource" />
+                </div>
                 <video autoPlay controls={true}/>
-                <img src="" alt="img"/>
             </div>
         );
     };
@@ -157,23 +166,43 @@ class HardwareSettings extends Component {
         return (
             <div>
                 <h2>Please, Fix Yor Devices</h2>
-                <MOButtonComponent handleClick={this.checkSetupDevices2} title="Check Setup Again" />
+                <MOButtonComponent handleClick={this.checkSetupDevices} title="Check Setup Again"/>
             </div>
         );
     };
 
-    render () {
+    handleSubmitHardware = () => {
+        if (this.state.hardwareIsReady) {
+
+        }
+    };
+
+    render() {
+        console.log(this.state.data);
         return (
             <div className="hardware-container">
                 {this.renderSetupScreen()}
-                {this.state.hardwareError === false && this.renderSetupError()}
+                {this.state.hardwareError === true && this.renderSetupError()}
                 <div className="setup-options">
-                    <MOButtonComponent handleClick={this.handleTestModeChange} title="Enable Test Mode" />
-                    <MOButtonComponent handleClick={this.checkSetupDevices2} title="Enter the Lobby" />
+                    <MOButtonComponent handleClick={this.handleTestModeChange} title="Enable Test Mode"/>
+                    <MOButtonComponent handleClick={this.checkSetupDevices} title="Enter the Lobby"/>
                 </div>
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    data: state
+});
+
+const mapDispatchToProps = {
+    createStream: createStream,
+};
+
+HardwareSettings = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(HardwareSettings);
 
 export default HardwareSettings;

@@ -4,7 +4,7 @@ import {currentLobbyAction} from "./actions/currentLobby";
 import StreamComponent from "../../components/Lobby";
 import withHardware from "../../shared/hoc/withHardware/withHardware";
 
-class LobbyPage extends React.PureComponent {
+class LobbyPage extends PureComponent {
     constructor(props) {
         super(props);
     }
@@ -36,7 +36,5 @@ LobbyPage = connect(
     mapStateToProps,
     mapDispatchToProps,
 )(LobbyPage);
-
-
 
 export default withHardware(LobbyPage);
