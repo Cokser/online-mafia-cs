@@ -1,8 +1,15 @@
 import React from 'react';
-import withLoading from "../../shared/hoc/withLoading/withLoading";
+import './style.scss';
 
-const HomeComponent = ({...props}) => {
-    return <h1>Home Component</h1>;
+import withLoading from "../../shared/hoc/withLoading/withLoading";
+import ManageLobby from "../ManageLobby";
+
+const HomeComponent = ({handleCreate, redirectToLobby, ...props}) => {
+    return (
+        <main className="main-container">
+            <ManageLobby handleCreate={handleCreate} redirectToLobby={redirectToLobby} option="create" />
+        </main>
+    );
 };
 
 export default withLoading(HomeComponent);

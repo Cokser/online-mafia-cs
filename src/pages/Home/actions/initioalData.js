@@ -1,4 +1,4 @@
-import requestActionCreator from '../../shared/helpers/requestActionCreator';
+import getRequestActionCreator from '../../../shared/helpers/getRrequestActionCreator';
 
 export const GET_INITIAL_DATA_REQUEST = 'GET_INITIAL_DATA_REQUEST';
 export const initialsIsLoading = bool => ({
@@ -18,7 +18,7 @@ export const initialReceive = payload => ({
     payload,
 });
 
-export const getInitialAction = requestActionCreator({
+export const getInitialAction = getRequestActionCreator({
     loadingAction: initialsIsLoading,
     errorAction: initialHasError,
     receivedAction: initialReceive,

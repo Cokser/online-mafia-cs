@@ -1,34 +1,51 @@
 import React, { PureComponent } from 'react';
+import { navigate } from 'hookrouter';
 import { connect } from 'react-redux';
-import {getInitialAction} from "./actions";
+import {createNewLobby} from "./actions/createLobby";
+import {currentLobbyAction} from "../Lobby/actions/currentLobby";
+
+import './styles.scss';
 import HomeComponent from "../../components/Home";
 
-class HomePage extends React.PureComponent {
+class HomePage extends PureComponent {
     constructor(props) {
         super(props);
     }
 
-    componentDidMount() {
-        this.props.getInitialAction('http://echo.jsontest.com/key/value/one/two');
-    }
+    handleCreateNewLobby = (body) => {
+        const { createNewLobby } = this.props;
+        createNewLobby('/lobby', body, this.redirectToLobby);
+    };
+
+    redirectToLobby = (newLobbyUrl) => {
+        console.log(newLobbyUrl);
+        this.props.checkLobby((newLobbyUrl.text), () => navigate(`/lobby/${newLobbyUrl.text}`));
+    };
 
     render() {
         return (
             <div className="home-container">
-                <HomeComponent isLoading={this.props.isLoading} data={this.props.data} />
+                <HomeComponent
+                    isLoading={this.props.isLoading}
+                    data={this.props.data}
+                    redirectToLobby={this.redirectToLobby}
+                    handleCreate={this.handleCreateNewLobby}
+                />
             </div>
         )
     }
 }
 const mapStateToProps = state => ({
-    data: state.getInitialReducer.data,
-    getInitialReducer: state.getInitialReducer,
-    isLoading: state.getInitialReducer.isLoading,
+    data: state.getInitial.data,
+    redirectToNewLobbyUrl: state.createdLobby.newLobbyUrl,
+    getInitialReducer: state.getInitial,
+    isLoading: state.getInitial.isLoading,
 });
 
-const mapDispatchToProps = {
-    getInitialAction,
-};
+const mapDispatchToProps = (dispatch) => ({
+    createNewLobby: (url, body, cb) => dispatch(createNewLobby(url, body, cb)),
+    checkLobby: (lobbyId, cb) => dispatch(currentLobbyAction(lobbyId, cb)),
+});
 
 HomePage = connect(
     mapStateToProps,

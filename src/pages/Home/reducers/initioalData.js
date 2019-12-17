@@ -2,7 +2,7 @@ import {
     GET_INITIAL_DATA_FAILURE,
     GET_INITIAL_DATA_REQUEST,
     GET_INITIAL_DATA_SUCCESS,
-} from './actions';
+} from '../actions/initioalData';
 
 const initialState = {
     data: null,
