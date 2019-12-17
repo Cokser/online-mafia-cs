@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import './styles.scss';
 import MOButtonComponent from "../../shared/components/MOButton";
 import {createStream, storeStream} from "../../shared/store/actions/stream";
+import MOVideoStream from "../../shared/components/MOVideoStream";
 
 class HardwareSettings extends PureComponent {
     state = {
@@ -45,7 +46,6 @@ class HardwareSettings extends PureComponent {
         }
     };
 
-
     gotStream = (stream) => {
         window.stream = stream; // make stream available to console
         this.videoElement.srcObject = stream;
@@ -59,6 +59,7 @@ class HardwareSettings extends PureComponent {
     handleError = (error) => {
         console.error('getUserMedia Error: ', error);
     };
+
     getStream = () => {
         if (window.stream) {
             window.stream
@@ -68,13 +69,16 @@ class HardwareSettings extends PureComponent {
 
         let constraints = {
             audio: {
-                deviceId: {exact: this.audioSelect.value}
+                deviceId: {exact: this.audioSelect.value},
+                echoCancellation: true,
+                autoGainControl: false,
+                volume: 0.5,
             },
             video: {
                 deviceId: {exact: this.state.testMode === 'fake'
                         ? 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4'
-                        : this.videoSelect.value}
-            }
+                        : this.videoSelect.value},
+            },
         };
         constraints.video = this.state.testMode ? false : constraints.video;
 
@@ -157,7 +161,7 @@ class HardwareSettings extends PureComponent {
                     <label htmlFor="videoSource">Video source: </label>
                     <select id="videoSource" />
                 </div>
-                <video autoPlay controls={true}/>
+                <MOVideoStream width="640" height="480" autoPlay controls muted />
             </div>
         );
     };
