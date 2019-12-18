@@ -1,0 +1,21 @@
+.registration-form-container {
+  width: 700px;
+  margin: 10px auto;
+  border-radius: 5px;
+  border: 8px solid #939393;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .registration-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .auth-options {
+    display: flex;
+    width: 400px;
+    margin: 0 auto;
+  }
+}

@@ -5,10 +5,14 @@ import getInitialReducer from "./pages/Home/reducers/initioalData";
 import createLobbyReducer from "./pages/Home/reducers/createLobby";
 import currentLobbyReducer from "./pages/Lobby/reducers/currentLobby";
 import sharedReducer from "./shared/store";
+import authorizationReducer from "./pages/Auth/reducers/authorization";
+import accountReducer from "./pages/Profile/reducers/account";
 
 const rootReducer = combineReducers({
-    shared: sharedReducer,
+    Shared: sharedReducer,
     getInitial: getInitialReducer,
+    Auth: authorizationReducer,
+    Account: accountReducer,
     createdLobby: createLobbyReducer,
     currentLobby: currentLobbyReducer,
 });

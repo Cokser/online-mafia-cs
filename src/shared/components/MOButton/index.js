@@ -1,11 +1,12 @@
 import React from 'react';
 import './style.scss';
 
-const MOButtonComponent = ({ handleClick, btnType, handleFocus, title }) => {
+const MOButtonComponent = ({ handleClick, btnType, handleFocus, title, btnStyle }) => {
+    const btnState = btnStyle || 'mo-btn';
     return (
         <div className="mo-btn-container">
             <button
-                className="mo-btn"
+                className={btnState}
                 type={btnType || "button"}
                 onClick={handleClick || null}
                 onFocus={handleFocus || null}

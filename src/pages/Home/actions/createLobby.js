@@ -1,4 +1,4 @@
-import postRequestActionCreator from "../../../shared/helpers/postRequestActionCreator";
+import postRequestActionCreator from "../../../shared/helpers/actionCreators/postRequestActionCreator";
 
 export const CREATE_LOBBY_SUCCESS = 'CREATE_LOBBY_SUCCESS';
 export const receiveNewLobby = payload => ({

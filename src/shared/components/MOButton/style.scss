@@ -11,4 +11,16 @@
     font-weight: normal;
     font-family: "Open Sans", sans-serif;
   }
+  .btn-submit {
+    @extend .mo-btn;
+    background: #9a2000;
+  }
+  .btn-success {
+    @extend .mo-btn;
+    background: #26a0b7;
+  }
+  .btn-warning {
+    @extend .mo-btn;
+    background: #ad6e11;
+  }
 }
