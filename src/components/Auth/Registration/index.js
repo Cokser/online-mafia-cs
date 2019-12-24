@@ -12,6 +12,14 @@ const RegistrationComponent = ({handleSubmit, handleAction, ...props}) => {
             <form onSubmit={handleSubmit} className="registration-form" >
                 <div className="form-group">
                     <MOFormInput
+                        title="Enter Your Email:"
+                        inputType="email"
+                        inputName="email"
+                        autoFocus
+                    />
+                </div>
+                <div className="form-group">
+                    <MOFormInput
                         title="Enter Your Nickname:"
                         inputName="nickname"
                     />
@@ -20,13 +28,6 @@ const RegistrationComponent = ({handleSubmit, handleAction, ...props}) => {
                     <MOFormInput
                         title="Enter Your Name:"
                         inputName="name"
-                    />
-                </div>
-                <div className="form-group">
-                    <MOFormInput
-                        title="Enter Your Email:"
-                        inputType="email"
-                        inputName="email"
                     />
                 </div>
                 <div className="auth-options">

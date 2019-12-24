@@ -1,0 +1,13 @@
+@import "../../shared/styles/variables";
+.admin-panel-container {
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  .user-role {
+    color: #fff;
+    font-size: 24px;
+    text-transform: uppercase;
+    margin: 0 10px 0 0;
+    font-family: $mo-main-font;
+  }
+}

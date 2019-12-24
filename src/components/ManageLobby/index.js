@@ -102,6 +102,7 @@ const ManageLobby = ({handleCreate, option, redirectToLobby }) => {
                     <MOFormInput
                         title="Enter the lobby:"
                         inputName="enterId"
+                        autoFocus
                     />
                 </div>
                 <MOButtonComponent

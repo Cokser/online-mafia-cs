@@ -14,6 +14,7 @@ const LoginComponent = ({handleSubmit, handleAction, ...props}) => {
                         title="Email:"
                         inputType="email"
                         inputName="email"
+                        autoFocus
                     />
                 </div>
                 <div className="form-group">

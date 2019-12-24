@@ -7,6 +7,7 @@ const MOFormInput = (
         inputType,
         title,
         inputName,
+        autoFocus,
         defaultValue,
         defaultChecked,
     }) => {
@@ -19,6 +20,7 @@ const MOFormInput = (
                 className="form-input"
                 id={inputName}
                 type={inputType || 'text'}
+                autoFocus={autoFocus}
                 name={inputName}
                 defaultChecked={defaultChecked}
                 defaultValue={defaultValue || null}
