@@ -1,27 +1,36 @@
 @import "../../styles/variables";
 .mo-btn-container {
-  margin: 0 auto;
+  margin: 0 10px;
   .mo-btn {
     cursor: pointer;
     padding: 10px 15px;
     color: #fff;
-    background: #9a2000;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     font-size: 20px;
     font-weight: normal;
     font-family: $mo-main-font;
+    transition: background-color .2s;
   }
   .btn-submit {
     @extend .mo-btn;
-    background: #9a2000;
+    background: #af2100;
+    &:hover {
+      background: #7C1F00;
+    }
   }
   .btn-success {
     @extend .mo-btn;
     background: #26a0b7;
+    &:hover {
+      background: #26859C;
+    }
   }
   .btn-warning {
     @extend .mo-btn;
     background: #ad6e11;
+    &:hover {
+      background: #9E6011;
+    }
   }
 }

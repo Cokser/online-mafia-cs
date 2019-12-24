@@ -21,6 +21,10 @@ class AdminPanelComponent extends PureComponent {
                     title="Fake user"
                     btnStyle="btn-success"
                 />
+                <MOButtonComponent
+                    title="Do Admin Things"
+                    btnStyle="btn-success"
+                />
             </div>
         )
     }
