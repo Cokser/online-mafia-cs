@@ -5,29 +5,40 @@
     cursor: pointer;
     padding: 10px 15px;
     color: #fff;
+    background: #858987;
     border: none;
     border-radius: 4px;
     font-size: 20px;
     font-weight: normal;
     font-family: $mo-main-font;
     transition: background-color .2s;
+    &:hover {
+      background: #6f7371;
+    }
+    &:disabled {
+      opacity: .5;
+      pointer-events: none;
+    }
   }
-  .btn-submit {
-    @extend .mo-btn;
+  .btn-error {
     background: #af2100;
     &:hover {
       background: #7C1F00;
     }
   }
+  .btn-submit {
+    background: #858987;
+    &:hover {
+      background: #6f7371;
+    }
+  }
   .btn-success {
-    @extend .mo-btn;
     background: #26a0b7;
     &:hover {
       background: #26859C;
     }
   }
   .btn-warning {
-    @extend .mo-btn;
     background: #ad6e11;
     &:hover {
       background: #9E6011;

@@ -20,6 +20,7 @@ class AdminPanelComponent extends PureComponent {
                 <MOButtonComponent
                     title="Fake user"
                     btnStyle="btn-success"
+                    disabled
                 />
                 <MOButtonComponent
                     title="Do Admin Things"
