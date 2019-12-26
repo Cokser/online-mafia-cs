@@ -96,8 +96,8 @@ const ManageLobby = ({handleCreate, option, redirectToLobby }) => {
     );
 
     const renderEnterLobbyForm = () => (
-        <form onSubmit={handleEnter} className="create-form" >
-            <div className="enter-form-container">
+        <div className="enter-form-container">
+            <form onSubmit={handleEnter} className="create-form" >
                 <div className="form-group">
                     <MOFormInput
                         title="Enter the lobby:"
@@ -109,8 +109,8 @@ const ManageLobby = ({handleCreate, option, redirectToLobby }) => {
                     title="Enter Lobby"
                     btnType="submit"
                 />
-            </div>
-        </form>
+            </form>
+        </div>
     );
 
     return (

@@ -2,10 +2,11 @@
   width: 700px;
   margin: 10px auto;
   border-radius: 5px;
-  border: 8px solid #939393;
+  border: 8px solid rgba(255, 255, 255, 1);
   padding: 10px;
   display: flex;
   justify-content: center;
+  background: rgba(255, 255, 255, 1);
   align-items: center;
 
   .create-form {
