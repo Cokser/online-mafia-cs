@@ -2,13 +2,15 @@ import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {LoginComponent, RegistrationComponent} from "../../components/Auth";
 
-import './style.scss';
 import {createNewAccount} from "./actions/createAccount";
+import {loginAccountAction} from "./actions/loginAccount";
+import './style.scss';
 
 class AuthorizationPage extends PureComponent {
     state = {
         authStatus: false,
     };
+
     constructor(props) {
         super(props);
     }
@@ -26,12 +28,17 @@ class AuthorizationPage extends PureComponent {
             passwordConfirm: e.target.passwordConfirm.value,
         };
 
-        if ( user.password !== user.passwordConfirm ) return;
+        if (user.password !== user.passwordConfirm) return;
         this.props.createAccount('/auth/register', user);
     };
 
     handleLogin = (e) => {
         e.preventDefault();
+        const user = {
+            username: e.target.username.value,
+            password: e.target.password.value,
+        };
+        this.props.loginAccount('/auth/login', user);
     };
 
     handleAuthStatusChange = (e) => {
@@ -47,8 +54,16 @@ class AuthorizationPage extends PureComponent {
             <div className="authorization-container">
                 {
                     this.state.authStatus
-                        ? <LoginComponent isLoading handleAction={this.handleAuthStatusChange} />
-                        : <RegistrationComponent isLoading handleAction={this.handleAuthStatusChange} handleSubmit={this.handleCreate} />
+                        ? <LoginComponent
+                            isLoading
+                            handleAction={this.handleAuthStatusChange}
+                            handleSubmit={this.handleLogin}
+                        />
+                        : <RegistrationComponent
+                            isLoading
+                            handleAction={this.handleAuthStatusChange}
+                            handleSubmit={this.handleCreate}
+                        />
                 }
             </div>
         );
@@ -69,6 +84,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     createAccount: (url, body, cb) => dispatch(createNewAccount(url, body, cb)),
+    loginAccount: (url, body, cb) => dispatch(loginAccountAction(url, body, cb)),
 });
 
 AuthorizationPage = connect(

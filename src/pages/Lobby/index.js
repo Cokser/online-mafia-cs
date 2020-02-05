@@ -23,7 +23,6 @@ class LobbyPage extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-    isLoading: state.getInitial.isLoading,
     hardwareIsReady: state.Shared.stream.hardwareIsReady,
 });
 

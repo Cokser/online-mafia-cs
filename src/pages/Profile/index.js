@@ -1,23 +1,21 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 
-import { LoginComponent, RegistrationComponent } from "../../components/Auth";
 import './style.scss';
 
-class Index extends PureComponent {
+class ProfilePage extends PureComponent {
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-        console.log('Authorization Page');
+        console.log('ProfilePage Page');
     }
 
-    renderAuth = () => {
+    renderProfile = () => {
         return (
-            <div className="authorization-container">
-                <LoginComponent isLoading />
-                <RegistrationComponent isLoading />
+            <div className="profile-page">
+                <h1>hello</h1>
             </div>
         );
     };
@@ -25,7 +23,7 @@ class Index extends PureComponent {
     render() {
         return (
             <div className="profile-page-container">
-                {this.renderAuth()}
+                {this.renderProfile()}
             </div>
         )
     }
@@ -35,9 +33,9 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {};
 
-Index = connect(
+ProfilePage = connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Index);
+)(ProfilePage);
 
-export default Index;
+export default ProfilePage;

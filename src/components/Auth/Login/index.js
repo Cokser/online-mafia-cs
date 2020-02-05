@@ -11,9 +11,8 @@ const LoginComponent = ({handleSubmit, handleAction, ...props}) => {
             <form onSubmit={handleSubmit} className="login-form" >
                 <div className="form-group">
                     <MOFormInput
-                        title="Email:"
-                        inputType="email"
-                        inputName="email"
+                        title="Username:"
+                        inputName="username"
                         autoFocus
                     />
                 </div>
