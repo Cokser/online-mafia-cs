@@ -17,7 +17,7 @@ class LobbyContainer extends PureComponent {
 
 const mapStateToProps = state => ({
     data: state.getInitial.data,
-    streamData: state.shared.stream.streamData,
+    streamData: state.Shared.stream.streamData,
 });
 
 const mapDispatchToProps = {

@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
-import { navigate } from 'hookrouter';
-import { connect } from 'react-redux';
-import {createNewLobby} from "./actions/createLobby";
+import React, {PureComponent} from 'react';
+import {navigate} from 'hookrouter';
+import {connect} from 'react-redux';
+import {createNewLobby} from "../Lobby/actions/createLobby";
 import {currentLobbyAction} from "../Lobby/actions/currentLobby";
 
 import './styles.scss';
@@ -13,7 +13,7 @@ class HomePage extends PureComponent {
     }
 
     handleCreateNewLobby = (body) => {
-        const { createNewLobby } = this.props;
+        const {createNewLobby} = this.props;
         createNewLobby('/lobby', body, this.redirectToLobby);
     };
 
@@ -35,11 +35,10 @@ class HomePage extends PureComponent {
         )
     }
 }
+
 const mapStateToProps = state => ({
-    data: state.getInitial.data,
-    redirectToNewLobbyUrl: state.createdLobby.newLobbyUrl,
-    getInitialReducer: state.getInitial,
-    isLoading: state.getInitial.isLoading,
+    redirectToNewLobbyUrl: state.Lobby.createLobby.newLobbyUrl,
+    isLoading: state.Lobby.createLobby.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

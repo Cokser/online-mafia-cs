@@ -2,15 +2,17 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import getInitialReducer from "./pages/Home/reducers/initioalData";
-import createLobbyReducer from "./pages/Home/reducers/createLobby";
-import currentLobbyReducer from "./pages/Lobby/reducers/currentLobby";
+import accountReducer from "./pages/Profile/reducers/account";
+import authorizationReducer from "./pages/Auth/reducers";
+import lobbyReducer from "./pages/Lobby/reducers";
 import sharedReducer from "./shared/store";
 
 const rootReducer = combineReducers({
-    shared: sharedReducer,
+    Auth: authorizationReducer,
+    Account: accountReducer,
+    Lobby: lobbyReducer,
+    Shared: sharedReducer,
     getInitial: getInitialReducer,
-    createdLobby: createLobbyReducer,
-    currentLobby: currentLobbyReducer,
 });
 
 const middleware = applyMiddleware(thunk);

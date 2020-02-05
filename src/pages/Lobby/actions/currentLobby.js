@@ -1,4 +1,4 @@
-import getRequestActionCreator from '../../../shared/helpers/getRrequestActionCreator';
+import getRequestActionCreator from '../../../shared/helpers/actionCreators/getRrequestActionCreator';
 
 export const GET_LOBBY_DATA_REQUEST = 'GET_LOBBY_DATA_REQUEST';
 export const getLobbyIsLoading = bool => ({

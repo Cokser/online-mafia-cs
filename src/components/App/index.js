@@ -3,6 +3,8 @@ import {useRoutes} from 'hookrouter';
 import {routes} from "../../routes";
 import HeaderComponent from "../Header";
 
+import './style.scss';
+
 const App = () => {
     const routeResult = useRoutes(routes);
     return (

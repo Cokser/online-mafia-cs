@@ -196,7 +196,7 @@ class HardwareSettings extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-    streamData: state.shared.stream.streamData,
+    streamData: state.Shared.stream.streamData,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,5 +1,4 @@
 import Request from 'superagent';
-import { navigate } from 'hookrouter';
 
 const postRequestActionCreator = ({loadingAction, errorAction, receivedAction}) => {
     const requestWrapper = (url, body, cb) => {
